@@ -1,8 +1,11 @@
+import { app } from 'electron';
+import path from 'path';
 import Database from 'better-sqlite3';
 
-// For now, the database will be created in the project's root directory.
-// This will be updated later to use the application's data directory.
-const db = new Database('ai-image-describer.db');
+// Use the application's user data directory for the database.
+// This is the standard and correct location for app data.
+const dbPath = path.join(app.getPath('userData'), 'ai-image-describer.db');
+const db = new Database(dbPath);
 
 const createCollectionsTable = `
   CREATE TABLE IF NOT EXISTS collections (
@@ -66,6 +69,6 @@ db.exec(createSettingsTable);
 db.exec(createTagsTable);
 db.exec(createImageTagsTable);
 
-console.log('Database initialized successfully.');
+console.log(`Database initialized successfully at: ${dbPath}`);
 
 export default db;
