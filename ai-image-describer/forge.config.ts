@@ -10,6 +10,7 @@ import { FuseV1Options, FuseVersion } from '@electron/fuses';
 
 import { mainConfig } from './webpack.main.config';
 import { rendererConfig } from './webpack.renderer.config';
+import { preloadConfig } from './webpack.preload.config';
 
 const config: ForgeConfig = {
   packagerConfig: {
@@ -34,6 +35,7 @@ const config: ForgeConfig = {
             js: './src/renderer.tsx',
             name: 'main_window',
             preload: {
+              config: preloadConfig,
               js: './src/preload.ts',
             },
           },
